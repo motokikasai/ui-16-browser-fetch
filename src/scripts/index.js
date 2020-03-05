@@ -34,6 +34,26 @@ submit.addEventListener("click", e => {
         const name = item.name;
         const description = item.description;
         const created = item.updated_at;
+
+        console.log(`
+        ${name}, 
+        ${description}, 
+        ${created}`);
+
+        let newHTML = `
+        
+        <div class="header">
+          <span class="title">Title</span>
+          <span class="date">date</span>
+        </div>
+        <div class="description">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius
+          doloremque asperiores consequuntur atque quidem quibusdam eveniet
+          saepe ipsam facilis doloribus.
+        </div>
+        
+        
+        `;
       });
     });
 });
