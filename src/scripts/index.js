@@ -21,6 +21,8 @@ submit.addEventListener("click", e => {
   e.preventDefault();
 
   const inputUsername = document.querySelector("#username").value;
+  const content = document.querySelector(".data-container");
+
   // console.log(inputUsername);
 
   fetch(`${baseURL}users/${inputUsername}/repos`)
@@ -40,20 +42,19 @@ submit.addEventListener("click", e => {
         ${description}, 
         ${created}`);
 
-        let newHTML = `
-        
-        <div class="header">
-          <span class="title">Title</span>
-          <span class="date">date</span>
-        </div>
-        <div class="description">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius
-          doloremque asperiores consequuntur atque quidem quibusdam eveniet
-          saepe ipsam facilis doloribus.
-        </div>
-        
-        
+        return `
+        <section class="content">
+          <div class="header">
+            <span class="title">${name}</span>
+            <span class="date">${created}</span>
+          </div>
+          <div class="description">
+          ${description}
+          </div>
+        </section>                
         `;
       });
+
+      content.innerHTML = mappedData.join("\n");
     });
 });
