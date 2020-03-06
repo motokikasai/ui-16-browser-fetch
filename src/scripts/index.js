@@ -63,7 +63,7 @@ import moment from "moment";
  * ---------------------------------------------------------- */
 
 class GitAPI {
-  constructor(options) {
+  constructor(bodyHtmlElement) {
     const baseURL = "https://api.github.com/";
     const submit = document.querySelector("button");
     const content = document.querySelector(".data-container");
