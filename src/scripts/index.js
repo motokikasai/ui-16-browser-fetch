@@ -64,11 +64,16 @@ import "bootstrap/scss/bootstrap.scss";
 class GitAPI {
   constructor() {
     const baseURL = "https://api.github.com/";
-    // this.gitRepo = `${baseURL}`;
+    const submit = document.querySelector("button");
+    const content = document.querySelector(".data-container");
+
+    this.baseURL = `${baseURL}`;
+    this.submit = submit;
+    this.content = content;
   }
 
-  fetchGitData(inputUsername) {
-    fetch(`${baseURL}users/${inputUsername}/repos`)
+  fetchGitData() {
+    fetch(`${this.baseURL}users/${this.inputUsername}/repos`)
       .then(res => {
         if (!res.ok) {
           throw new Error();
@@ -77,32 +82,46 @@ class GitAPI {
         }
       })
       .then(data => {
-        console.log(data);
-
         const mappedData = data.map(item => {
-          const name = item.name;
-          const description = item.description;
-          const updatedAt = item.updated_at;
+          this.name = item.name;
+          this.description = item.description;
+          this.updatedAt = item.updated_at;
 
-          console.log(`
-          ${name},
-          ${description},
-          ${updatedAt}`);
+          // console.log(`
+          // ${this.name},
+          // ${this.description},
+          // ${this.updatedAt}`);
 
           return `
           <section class="content">
             <div class="header">
-              <span class="title">${name}</span>
-              <span class="date">${updatedAt}</span>
+              <span class="title">${this.name}</span>
+              <span class="date">${this.updatedAt}</span>
             </div>
             <div class="description">
-            ${description}
+            ${this.description}
             </div>
           </section>
           `;
         });
 
-        content.innerHTML = mappedData.join("\n");
+        this.content.innerHTML = mappedData.join("\n");
       });
   }
+
+  addEvent() {
+    this.submit.addEventListener("click", e => {
+      e.preventDefault();
+
+      const inputUsername = document.querySelector("#username").value;
+      this.inputUsername = inputUsername;
+
+      this.fetchGitData();
+    });
+  }
 }
+
+const getReposByUsername = new GitAPI();
+getReposByUsername.addEvent();
+
+// console.log(getReposByUsername.addEvent());
