@@ -6,49 +6,103 @@ import "bootstrap/scss/bootstrap.scss";
 
 // \/ All of your javascript should go here \/
 
-const baseURL = "https://api.github.com/";
+/** ----------------------------------------------------------
+ * STD method
+ * ---------------------------------------------------------- */
 
-// document.querySelector("main").innerHTML = "Loading...";
+// const baseURL = "https://api.github.com/";
 
-const submit = document.querySelector("button");
-submit.addEventListener("click", e => {
-  e.preventDefault();
+// // document.querySelector("main").innerHTML = "Loading...";
 
-  const inputUsername = document.querySelector("#username").value;
-  const content = document.querySelector(".data-container");
+// const submit = document.querySelector("button");
+// submit.addEventListener("click", e => {
+//   e.preventDefault();
 
-  // console.log(inputUsername);
+//   const inputUsername = document.querySelector("#username").value;
+//   const content = document.querySelector(".data-container");
 
-  fetch(`${baseURL}users/${inputUsername}/repos`)
-    .then(res => {
-      return res.json();
-    })
-    .then(data => {
-      console.log(data);
+//   // console.log(inputUsername);
 
-      const mappedData = data.map(item => {
-        const name = item.name;
-        const description = item.description;
-        const updatedAt = item.updated_at;
+//   fetch(`${baseURL}users/${inputUsername}/repos`)
+//     .then(res => {
+//       return res.json();
+//     })
+//     .then(data => {
+//       console.log(data);
 
-        console.log(`
-        ${name}, 
-        ${description}, 
-        ${updatedAt}`);
+//       const mappedData = data.map(item => {
+//         const name = item.name;
+//         const description = item.description;
+//         const updatedAt = item.updated_at;
 
-        return `
-        <section class="content">
-          <div class="header">
-            <span class="title">${name}</span>
-            <span class="date">${updatedAt}</span>
-          </div>
-          <div class="description">
-          ${description}
-          </div>
-        </section>                
-        `;
+//         console.log(`
+//         ${name},
+//         ${description},
+//         ${updatedAt}`);
+
+//         return `
+//         <section class="content">
+//           <div class="header">
+//             <span class="title">${name}</span>
+//             <span class="date">${updatedAt}</span>
+//           </div>
+//           <div class="description">
+//           ${description}
+//           </div>
+//         </section>
+//         `;
+//       });
+
+//       content.innerHTML = mappedData.join("\n");
+//     });
+// });
+
+/** ----------------------------------------------------------
+ * Class method
+ * ---------------------------------------------------------- */
+
+class GitAPI {
+  constructor() {
+    const baseURL = "https://api.github.com/";
+    // this.gitRepo = `${baseURL}`;
+  }
+
+  fetchGitData(inputUsername) {
+    fetch(`${baseURL}users/${inputUsername}/repos`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error();
+        } else {
+          return res.json();
+        }
+      })
+      .then(data => {
+        console.log(data);
+
+        const mappedData = data.map(item => {
+          const name = item.name;
+          const description = item.description;
+          const updatedAt = item.updated_at;
+
+          console.log(`
+          ${name},
+          ${description},
+          ${updatedAt}`);
+
+          return `
+          <section class="content">
+            <div class="header">
+              <span class="title">${name}</span>
+              <span class="date">${updatedAt}</span>
+            </div>
+            <div class="description">
+            ${description}
+            </div>
+          </section>
+          `;
+        });
+
+        content.innerHTML = mappedData.join("\n");
       });
-
-      content.innerHTML = mappedData.join("\n");
-    });
-});
+  }
+}
