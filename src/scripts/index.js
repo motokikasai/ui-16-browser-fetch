@@ -87,11 +87,6 @@ class GitAPI {
           this.description = item.description;
           this.updatedAt = item.updated_at;
 
-          // console.log(`
-          // ${this.name},
-          // ${this.description},
-          // ${this.updatedAt}`);
-
           return `
           <section class="content">
             <div class="header">
@@ -123,5 +118,3 @@ class GitAPI {
 
 const getReposByUsername = new GitAPI();
 getReposByUsername.addEvent();
-
-// console.log(getReposByUsername.addEvent());
