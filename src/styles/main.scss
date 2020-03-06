@@ -43,3 +43,13 @@ input {
   padding: 0 20px;
   padding-bottom: 20px;
 }
+
+.position-loader {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.spinner {
+  position: absolute;
+}

@@ -63,7 +63,7 @@ import moment from "moment";
  * ---------------------------------------------------------- */
 
 class GitAPI {
-  constructor() {
+  constructor(options) {
     const baseURL = "https://api.github.com/";
     const submit = document.querySelector("button");
     const content = document.querySelector(".data-container");
@@ -74,11 +74,11 @@ class GitAPI {
     this.content = content;
     this.loader = loader;
 
-    this.loader.style.visibility = "hidden";
+    this.loader.style.display = "none";
   }
 
   fetchGitData() {
-    this.loader.style.visibility = "visible";
+    this.loader.style.display = "block";
 
     fetch(`${this.baseURL}users/${this.inputUsername}/repos`)
       .then(res => {
@@ -89,7 +89,7 @@ class GitAPI {
         }
       })
       .then(data => {
-        this.loader.style.visibility = "hidden";
+        this.loader.style.display = "none";
 
         const mappedData = data.map(item => {
           this.name = item.name;
@@ -125,5 +125,7 @@ class GitAPI {
   }
 }
 
-const getReposByUsername = new GitAPI();
-getReposByUsername.addEvent();
+document.addEventListener("DOMContentLoaded", e => {
+  const getReposByUsername = new GitAPI();
+  getReposByUsername.addEvent();
+});
