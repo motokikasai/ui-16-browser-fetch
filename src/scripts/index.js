@@ -2,6 +2,7 @@
 import "../styles/main.scss";
 import "regenerator-runtime/runtime";
 import "bootstrap/scss/bootstrap.scss";
+import moment from "moment";
 // Import any additional modules you want to include below \/
 
 // \/ All of your javascript should go here \/
@@ -44,7 +45,7 @@ import "bootstrap/scss/bootstrap.scss";
 //         <section class="content">
 //           <div class="header">
 //             <span class="title">${name}</span>
-//             <span class="date">${updatedAt}</span>
+//             <span class="date">${moment(updatedAt).fromNow()}</span>
 //           </div>
 //           <div class="description">
 //           ${description}
@@ -91,7 +92,7 @@ class GitAPI {
           <section class="content">
             <div class="header">
               <span class="title">${this.name}</span>
-              <span class="date">${this.updatedAt}</span>
+              <span class="date">${moment(this.updatedAt).fromNow()}</span>
             </div>
             <div class="description">
             ${this.description}
