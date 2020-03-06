@@ -10,12 +10,6 @@ const baseURL = "https://api.github.com/";
 
 // document.querySelector("main").innerHTML = "Loading...";
 
-// class GitRepo {
-//   constructor(username) {
-//     this.username = username;
-//   }
-// }
-
 const submit = document.querySelector("button");
 submit.addEventListener("click", e => {
   e.preventDefault();
@@ -35,18 +29,18 @@ submit.addEventListener("click", e => {
       const mappedData = data.map(item => {
         const name = item.name;
         const description = item.description;
-        const created = item.updated_at;
+        const updatedAt = item.updated_at;
 
         console.log(`
         ${name}, 
         ${description}, 
-        ${created}`);
+        ${updatedAt}`);
 
         return `
         <section class="content">
           <div class="header">
             <span class="title">${name}</span>
-            <span class="date">${created}</span>
+            <span class="date">${updatedAt}</span>
           </div>
           <div class="description">
           ${description}
