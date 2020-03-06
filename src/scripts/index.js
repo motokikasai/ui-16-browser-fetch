@@ -67,13 +67,19 @@ class GitAPI {
     const baseURL = "https://api.github.com/";
     const submit = document.querySelector("button");
     const content = document.querySelector(".data-container");
+    const loader = document.querySelector(".loader");
 
     this.baseURL = `${baseURL}`;
     this.submit = submit;
     this.content = content;
+    this.loader = loader;
+
+    this.loader.style.visibility = "hidden";
   }
 
   fetchGitData() {
+    this.loader.style.visibility = "visible";
+
     fetch(`${this.baseURL}users/${this.inputUsername}/repos`)
       .then(res => {
         if (!res.ok) {
@@ -83,6 +89,8 @@ class GitAPI {
         }
       })
       .then(data => {
+        this.loader.style.visibility = "hidden";
+
         const mappedData = data.map(item => {
           this.name = item.name;
           this.description = item.description;
