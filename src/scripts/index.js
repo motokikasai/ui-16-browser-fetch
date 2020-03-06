@@ -95,17 +95,20 @@ class GitAPI {
           this.name = item.name;
           this.description = item.description;
           this.updatedAt = item.updated_at;
+          this.url = item.html_url;
 
           return `
-          <section class="content">
-            <div class="header">
-              <span class="title">${this.name}</span>
-              <span class="date">${moment(this.updatedAt).fromNow()}</span>
-            </div>
-            <div class="description">
-            ${this.description}
-            </div>
-          </section>
+          <a href=${this.url} target="_blank">
+            <section class="content">
+              <div class="header">
+                <span class="title">${this.name}</span>
+                <span class="date">${moment(this.updatedAt).fromNow()}</span>
+              </div>
+              <div class="description">
+              ${this.description}
+              </div>
+            </section>
+          </a>
           `;
         });
 
