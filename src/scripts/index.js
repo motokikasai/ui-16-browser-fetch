@@ -13,8 +13,6 @@ import moment from "moment";
 
 // const baseURL = "https://api.github.com/";
 
-// // document.querySelector("main").innerHTML = "Loading...";
-
 // const submit = document.querySelector("button");
 // submit.addEventListener("click", e => {
 //   e.preventDefault();
@@ -63,7 +61,7 @@ import moment from "moment";
  * ---------------------------------------------------------- */
 
 class GitAPI {
-  constructor(bodyHtmlElement) {
+  constructor() {
     const baseURL = "https://api.github.com/";
     const submit = document.querySelector("button");
     const content = document.querySelector(".data-container");
@@ -91,10 +89,17 @@ class GitAPI {
       .then(data => {
         this.loader.style.display = "none";
 
-        const mappedData = data.map(item => {
+        // Sort by Date Updated
+        const sortedArrayOfObjects = data.sort(
+          (a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)
+        );
+        console.log(sortedArrayOfObjects);
+
+        // Map the data into the HTML template
+        const mappedData = sortedArrayOfObjects.map(item => {
           this.name = item.name;
           this.description = item.description;
-          this.updatedAt = item.updated_at;
+          this.createdAt = item.created_at;
           this.url = item.html_url;
 
           return `
@@ -102,7 +107,7 @@ class GitAPI {
             <section class="content">
               <div class="header">
                 <span class="title">${this.name}</span>
-                <span class="date">${moment(this.updatedAt).fromNow()}</span>
+                <span class="date">${moment(this.createdAt).fromNow()}</span>
               </div>
               <div class="description">
               ${this.description}
@@ -129,6 +134,5 @@ class GitAPI {
 }
 
 document.addEventListener("DOMContentLoaded", e => {
-  const getReposByUsername = new GitAPI();
-  getReposByUsername.addEvent();
+  new GitAPI().addEvent();
 });
