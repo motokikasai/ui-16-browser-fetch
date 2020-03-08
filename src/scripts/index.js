@@ -64,13 +64,10 @@ class GithubWidget {
   constructor(targets) {
     const baseURL = "https://api.github.com/";
     const submit = document.querySelector("button");
-    const content = document.querySelector(".data-container");
     const loader = document.querySelector(".loader");
-    // const target = `${Object.values(targets)[0]}`;
 
     this.baseURL = `${baseURL}`;
     this.submit = submit;
-    this.content = content;
     this.loader = loader;
 
     // 'targets' must be an object, eg) { target: #target-container-id }
@@ -132,8 +129,6 @@ class GithubWidget {
         }
 
         targetHtlmElement.innerHTML = mappedData.join("\n");
-
-        this.content.innerHTML = mappedData.join("\n");
       });
   }
 
@@ -150,5 +145,5 @@ class GithubWidget {
 }
 
 document.addEventListener("DOMContentLoaded", e => {
-  new GithubWidget({ target: "#widget2" }).addEvent();
+  new GithubWidget({ target: "#widget1" }).addEvent();
 });
