@@ -125,9 +125,15 @@ class GithubWidget {
         const target = Object.values(this.targets);
         const targetHtlmElement = document.querySelector(target);
         console.log(targetHtlmElement);
+        if (target == "#widget1") {
+          document.body.style.backgroundColor = "mistyrose";
+        } else if (target == "#widget2") {
+          document.body.style.backgroundColor = "coral";
+        }
+
         targetHtlmElement.innerHTML = mappedData.join("\n");
 
-        // this.content.innerHTML = mappedData.join("\n");
+        this.content.innerHTML = mappedData.join("\n");
       });
   }
 
