@@ -144,6 +144,7 @@ class GithubWidget {
   }
 }
 
+// Upon DOM content loaded creates a new instance of Class GithubWidget
 document.addEventListener("DOMContentLoaded", e => {
-  new GithubWidget({ target: "#widget1" }).addEvent();
+  new GithubWidget({ target: "#widget2" }).addEvent();
 });
