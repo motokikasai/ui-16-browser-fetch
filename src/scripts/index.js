@@ -60,17 +60,21 @@ import moment from "moment";
  * Class method
  * ---------------------------------------------------------- */
 
-class GitAPI {
-  constructor() {
+class GithubWidget {
+  constructor(targets) {
     const baseURL = "https://api.github.com/";
     const submit = document.querySelector("button");
     const content = document.querySelector(".data-container");
     const loader = document.querySelector(".loader");
+    // const target = `${Object.values(targets)[0]}`;
 
     this.baseURL = `${baseURL}`;
     this.submit = submit;
     this.content = content;
     this.loader = loader;
+
+    // 'targets' must be an object, eg) { target: #target-container-id }
+    this.targets = targets;
 
     this.loader.style.display = "none";
   }
@@ -117,7 +121,13 @@ class GitAPI {
           `;
         });
 
-        this.content.innerHTML = mappedData.join("\n");
+        // Apply the given argument as the 'target elelment' in HTML
+        const target = Object.values(this.targets);
+        const targetHtlmElement = document.querySelector(target);
+        console.log(targetHtlmElement);
+        targetHtlmElement.innerHTML = mappedData.join("\n");
+
+        // this.content.innerHTML = mappedData.join("\n");
       });
   }
 
@@ -134,5 +144,5 @@ class GitAPI {
 }
 
 document.addEventListener("DOMContentLoaded", e => {
-  new GitAPI().addEvent();
+  new GithubWidget({ target: "#widget2" }).addEvent();
 });
