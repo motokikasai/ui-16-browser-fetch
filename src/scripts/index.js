@@ -126,9 +126,9 @@ class GithubWidget {
         const targetHtlmElement = document.querySelector(target);
         console.log(targetHtlmElement);
         if (target == "#widget1") {
-          document.body.style.backgroundColor = "mistyrose";
+          document.body.style.backgroundColor = "Beige";
         } else if (target == "#widget2") {
-          document.body.style.backgroundColor = "coral";
+          document.body.style.backgroundColor = "PowderBlue";
         }
 
         targetHtlmElement.innerHTML = mappedData.join("\n");
