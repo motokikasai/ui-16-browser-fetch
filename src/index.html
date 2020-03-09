@@ -9,25 +9,18 @@
 
   <body>
     <main class="container m-5">
-      <img
-        src="./images/GitHub-Mark-120px-plus.png"
-        class="github-mark"
-        alt="github-mark"
-      /><img
-        src="./images/GitHub_Logo.png"
-        class="github-logo"
-        alt="github-logo"
-      />
-      <h1>Username Widget</h1>
-      <!-- <form>
-        <input
-        type="text"
-        id="username"
-        name="username"
-        placeholder="Github username"
+      <div class="title">
+        <img
+          src="./images/GitHub-Mark-120px-plus.png"
+          class="github-mark"
+          alt="github-mark"
+        /><img
+          src="./images/GitHub_Logo.png"
+          class="github-logo"
+          alt="github-logo"
         />
-        <button class="text-white bg-primary rounded-sm"">Submit</button>
-      </form> -->
+        <h1>Username Widget</h1>
+      </div>
 
       <!-- Main contents appear here -->
       <section id="widget0" class="sec-style data-container"></section>
@@ -39,11 +32,10 @@
       <section id="widget2" class="sec-style"></section>
     </main>
 
+    <!-- Loading... -->
     <section class="loader position-loader pt-5">
       <strong class="text-primary mr-3">Loading...</strong>
-      <div class="spinner spinner-border text-primary" role="status">
-        <!-- <span class="sr-only">Loading...</span> -->
-      </div>
+      <div class="spinner spinner-border text-primary" role="status"></div>
     </section>
   </body>
 </html>
