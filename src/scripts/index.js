@@ -61,25 +61,43 @@ import moment from "moment";
  * ---------------------------------------------------------- */
 
 class GithubWidget {
-  constructor(targets) {
-    const baseURL = "https://api.github.com/";
-    const submit = document.querySelector("button");
-    const loader = document.querySelector(".loader");
+  constructor(containerSelector) {
+    this.baseURL = "https://api.github.com/";
+    this.submit = document.querySelector("button");
+    this.loader = document.querySelector(".loader");
 
-    this.baseURL = `${baseURL}`;
-    this.submit = submit;
-    this.loader = loader;
+    this.container = document.querySelector(containerSelector);
+    this.container.innerHTML = this.createForm();
 
-    // 'targets' must be an object, eg) { target: #target-container-id }
-    this.targets = targets;
+    this.form = this.container.querySelector("form");
+    this.form.addEventListener("submit", e => {
+      e.preventDefault();
+      this.fetchGitData(containerSelector);
+    });
+
+    this.inputUsername = this.form.querySelector("#username");
 
     this.loader.style.display = "none";
   }
 
-  fetchGitData() {
+  createForm() {
+    return `
+    <form>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Github username"
+      />
+      <button class="text-white bg-primary rounded-sm"">Submit</button>
+    </form>
+    `;
+  }
+
+  fetchGitData(containerSelector) {
     this.loader.style.display = "block";
 
-    fetch(`${this.baseURL}users/${this.inputUsername}/repos`)
+    fetch(`${this.baseURL}users/${this.inputUsername.value}/repos`)
       .then(res => {
         if (!res.ok) {
           throw new Error();
@@ -89,7 +107,7 @@ class GithubWidget {
       })
       .then(data => {
         this.loader.style.display = "none";
-
+        console.log(data);
         // Sort by Date Updated
         const sortedArrayOfObjects = data.sort(
           (a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)
@@ -119,32 +137,38 @@ class GithubWidget {
         });
 
         // Apply the given argument as the 'target elelment' in HTML
-        const target = Object.values(this.targets);
-        const targetHtlmElement = document.querySelector(target);
+        // const target = Object.values(this.targets);
+        const targetHtlmElement = document.querySelector(containerSelector);
         console.log(targetHtlmElement);
-        if (target == "#widget1") {
-          document.body.style.backgroundColor = "Beige";
-        } else if (target == "#widget2") {
-          document.body.style.backgroundColor = "PowderBlue";
-        }
+        // if (containerSelector == "#widget1") {
+        //   document.body.style.backgroundColor = "Beige";
+        // } else if (containerSelector == "#widget2") {
+        //   document.body.style.backgroundColor = "PowderBlue";
+        // }
 
         targetHtlmElement.innerHTML = mappedData.join("\n");
       });
   }
 
-  addEvent() {
-    this.submit.addEventListener("click", e => {
-      e.preventDefault();
+  // addEvent() {
+  //   this.submit.addEventListener("click", e => {
+  //     e.preventDefault();
 
-      const inputUsername = document.querySelector("#username").value;
-      this.inputUsername = inputUsername;
+  //     this.inputUsername = document.querySelector("#username").value;
 
-      this.fetchGitData();
-    });
-  }
+  //     this.fetchGitData();
+  //   });
+  // }
 }
 
 // Upon DOM content loaded creates a new instance of Class GithubWidget
 document.addEventListener("DOMContentLoaded", e => {
-  new GithubWidget({ target: "#widget1" }).addEvent();
+  // 00 class instance
+  new GithubWidget("#widget0");
+
+  // 01 class instance
+  new GithubWidget("#widget1");
+
+  // 02 class instance
+  new GithubWidget("#widget2");
 });
