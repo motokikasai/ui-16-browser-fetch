@@ -140,11 +140,15 @@ class GithubWidget {
         // const target = Object.values(this.targets);
         const targetHtlmElement = document.querySelector(containerSelector);
         console.log(targetHtlmElement);
-        // if (containerSelector == "#widget1") {
-        //   document.body.style.backgroundColor = "Beige";
-        // } else if (containerSelector == "#widget2") {
-        //   document.body.style.backgroundColor = "PowderBlue";
-        // }
+        if (containerSelector == "#widget1") {
+          document.querySelector(containerSelector).style.backgroundColor =
+            "Beige";
+        } else if (containerSelector == "#widget2") {
+          document.querySelector(containerSelector).style.backgroundColor =
+            "PowderBlue";
+        } else
+          document.querySelector(containerSelector).style.backgroundColor =
+            "mistyrose";
 
         targetHtlmElement.innerHTML = mappedData.join("\n");
       });
